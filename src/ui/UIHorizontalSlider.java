@@ -4,7 +4,7 @@ import input.MouseInput;
 
 import java.awt.*;
 
-public class UIHorizontalSlider extends UIComponent implements Clickable{
+public class UIHorizontalSlider extends UIComponent implements Clickable, Draggable{
 
     private Color mainColor;
     private Color filledAreaColor;
@@ -54,6 +54,12 @@ public class UIHorizontalSlider extends UIComponent implements Clickable{
     @Override
     public void onUnHover() {
 
+    }
+
+    @Override
+    public void onDrag(int dx, int dy) {
+        value = ((double)(MouseInput.x - x)) / width;
+        action.onClick(this);
     }
 
     @Override
