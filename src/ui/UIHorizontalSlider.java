@@ -56,6 +56,14 @@ public class UIHorizontalSlider extends UIComponent implements Clickable, Dragga
 
     }
 
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
     @Override
     public void onDrag(int dx, int dy) {
         value = ((double)(MouseInput.x - x)) / width;

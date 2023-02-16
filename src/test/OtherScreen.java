@@ -1,10 +1,7 @@
 package test;
 
 import main.MainRender;
-import ui.Screen;
-import ui.UIButton;
-import ui.UIHorizontalSlider;
-import ui.UIRectangle;
+import ui.*;
 
 import java.awt.*;
 
@@ -20,5 +17,6 @@ public class OtherScreen extends Screen {
         this.addComponent(new UIHorizontalSlider(300, 100, 500, 10, new Color(100, 0, 120), new Color(150, 90, 190), (slider) -> {
 
         }));
+        this.addComponent(new UIVerticalScrollBar(400, 160, 10, 400, new Color(220, 220, 220), new Color(140, 140, 140), 40));
     }
 }
