@@ -32,30 +32,40 @@ public abstract class UIComponent {
     protected void onDrag(int dx, int dy) {
 
     }
-    protected abstract void render(Graphics2D g);
-    protected abstract void tick();
-    protected void baseTick() {
-        if(this instanceof Clickable && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && !isHovered) {
-            isHovered = true;
-            onHover();
-        }
+    protected abstract void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY);
+    protected abstract void tick(Shape containerShape, int offsetX, int offsetY);
+    protected void baseTick(Shape containerShape, int offsetX, int offsetY) {
+        int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
+        int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
 
-        if(this instanceof Clickable && !(MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height) && isHovered) {
-            isHovered = false;
-            onUnHover();
-        }
+        if(containerShape.contains(new Point(MouseInput.x, MouseInput.y - 26))) {
+            if (this instanceof Clickable && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && !isHovered) {
+                isHovered = true;
+                onHover();
+            }
 
-        if(this instanceof Clickable && ScreenManager.getClickedComponent() == null && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && !lastMouseClickState && MouseInput.leftClick) {
-            ScreenManager.setClickedComponent(this);
-            onClick();
-        }
+            if (this instanceof Clickable && !(MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height) && isHovered) {
+                isHovered = false;
+                onUnHover();
+            }
 
-        if(this instanceof Clickable && ScreenManager.getClickedComponent() == this && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && lastMouseClickState && !MouseInput.leftClick) {
-            onUnClick();
-        }
+            if (this instanceof Clickable && ScreenManager.getClickedComponent() == null && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && !lastMouseClickState && MouseInput.leftClick) {
+                ScreenManager.setClickedComponent(this);
+                onClick();
+            }
 
-        if(this instanceof Draggable && ScreenManager.getClickedComponent() == this && isClickable) {
-            onDrag(MouseInput.x - lastMouseX, MouseInput.y - lastMouseY);
+            if (this instanceof Clickable && ScreenManager.getClickedComponent() == this && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && lastMouseClickState && !MouseInput.leftClick) {
+                onUnClick();
+            }
+
+            if (this instanceof Draggable && ScreenManager.getClickedComponent() == this && isClickable) {
+                onDrag(MouseInput.x - lastMouseX, MouseInput.y - lastMouseY);
+            }
+        } else {
+            if(isHovered) {
+                isHovered = false;
+                onUnHover();
+            }
         }
 
         lastMouseClickState = MouseInput.leftClick;

@@ -30,13 +30,15 @@ public class UITextLabel extends UIComponent{
     }
 
     @Override
-    protected void render(Graphics2D g) {
+    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
+        int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
+        int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         g.setColor(color);
         TextRenderer.drawCenteredString(g, x, y, width, height, text, new Font("Arial", 0, fontSize));
     }
 
     @Override
-    protected void tick() {
-
+    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+        baseTick(containerShape, offsetX, offsetY);
     }
 }
