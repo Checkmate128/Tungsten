@@ -20,9 +20,7 @@ public class OtherScreen extends Screen {
         this.addComponent(new UIVerticalScrollBar(400, 160, 10, 400, new Color(220, 220, 220), new Color(140, 140, 140), 40));
 
         UICompoundComponent compoundTest = new UICompoundComponent(600, 600, 40, 40);
-        compoundTest.addComponent(new UIButton(0, 0, 80, 80, "Test", new Color(160, 160, 160), new Color(10, 240, 240), (button) -> {
-            System.out.println("Test");
-        }));
+        compoundTest.addComponent(new UIImage(4, 4, 120, 120, "/test/test_image.png"));
         this.addComponent(compoundTest);
     }
 }
