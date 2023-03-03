@@ -15,7 +15,7 @@ public class MainScreen extends Screen {
             MainRender.switchScreen(new OtherScreen());
         }));
         this.addComponent(new UICheckBox(300, 200, 50, 50, Color.BLACK, (checkBox) -> {
-            System.out.println("Click!");
+
         }));
     }
 }
