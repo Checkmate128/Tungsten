@@ -61,6 +61,14 @@ public abstract class UIComponent {
             if (this instanceof Draggable && ScreenManager.getClickedComponent() == this && isClickable) {
                 onDrag(MouseInput.x - lastMouseX, MouseInput.y - lastMouseY);
             }
+
+            if (this instanceof Typeable && !MouseInput.leftClick && lastMouseClickState) {
+                if(MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height) {
+                    ScreenManager.setTypingComponent(this);
+                } else {
+                    ScreenManager.setTypingComponent(null);
+                }
+            }
         } else {
             if(isHovered) {
                 isHovered = false;

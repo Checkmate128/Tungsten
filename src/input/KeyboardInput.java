@@ -20,6 +20,7 @@ public class KeyboardInput extends KeyAdapter {
 
 	public static char currentKey;
 	public static int currentCode;
+	public static boolean isActionKey = false;
 
 	public static boolean typing = false;
 
@@ -82,7 +83,7 @@ public class KeyboardInput extends KeyAdapter {
 		}
 
 		currentCode = e.getKeyCode();
-		e.isActionKey();
+		isActionKey = e.isActionKey();
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -138,7 +139,6 @@ public class KeyboardInput extends KeyAdapter {
 		}
 
 		currentCode = e.getKeyCode();
-
 	}
 
 	public static boolean canBeTyped(int keyCode) {
@@ -147,6 +147,10 @@ public class KeyboardInput extends KeyAdapter {
 		}
 
 		if(keyCode == KeyEvent.VK_BACK_SPACE) {
+			return true;
+		}
+
+		if(keyCode == KeyEvent.VK_RIGHT || keyCode == KeyEvent.VK_LEFT) {
 			return true;
 		}
 

@@ -1,10 +1,7 @@
 package test;
 
 import main.MainRender;
-import ui.Screen;
-import ui.UIButton;
-import ui.UICheckBox;
-import ui.UIRectangle;
+import ui.*;
 
 import java.awt.*;
 
@@ -17,5 +14,6 @@ public class MainScreen extends Screen {
         this.addComponent(new UICheckBox(300, 200, 50, 50, Color.BLACK, (checkBox) -> {
 
         }));
+        this.addComponent(new UITextField(500,500, 200, 50, new Font("Arial", 0, 20), Color.WHITE, Color.BLACK, Color.BLACK));
     }
 }
