@@ -15,21 +15,6 @@ public class UIRectangle extends UIComponent {
     }
 
     @Override
-    protected void onClick() {
-
-    }
-
-    @Override
-    protected void onHover() {
-
-    }
-
-    @Override
-    protected void onUnHover() {
-
-    }
-
-    @Override
     protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
         int y = this.y + (int) containerShape.getBounds().getY() + offsetY;

@@ -45,7 +45,9 @@ public class UIVerticalScrollBar extends UIComponent implements Draggable, Click
     }
 
     @Override
-    public void onDrag(int dx, int dy) {
+    public void onDrag(int dx, int dy, Shape containerShape, int offsetX, int offsetY) {
+        int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
+        int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         if(MouseInput.y - 24 > y + value * (height - barFillLength - 2) + 1 && MouseInput.y - 24 < y + value * (height - barFillLength - 2) + 1 + barFillLength) {
             value += (double)dy / (double)((height - barFillLength - 2) + 1);
         } else {
@@ -54,22 +56,22 @@ public class UIVerticalScrollBar extends UIComponent implements Draggable, Click
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onUnClick() {
+    public void onUnClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onHover() {
+    public void onHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onUnHover() {
+    public void onUnHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 }

@@ -36,23 +36,25 @@ public class UIHorizontalSlider extends UIComponent implements Clickable, Dragga
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Shape containerShape, int offsetX, int offsetY) {
+        int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
+        int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         value = ((double)(MouseInput.x - x)) / width;
         action.onClick(this);
     }
 
     @Override
-    public void onUnClick() {
+    public void onUnClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onHover() {
+    public void onHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onUnHover() {
+    public void onUnHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
@@ -65,7 +67,9 @@ public class UIHorizontalSlider extends UIComponent implements Clickable, Dragga
     }
 
     @Override
-    public void onDrag(int dx, int dy) {
+    public void onDrag(int dx, int dy, Shape containerShape, int offsetX, int offsetY) {
+        int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
+        int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         value = ((double)(MouseInput.x - x)) / width;
         action.onClick(this);
     }

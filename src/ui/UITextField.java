@@ -1,6 +1,7 @@
 package ui;
 
 import input.KeyboardInput;
+import input.MouseInput;
 import input.TextRenderer;
 
 import java.awt.*;
@@ -8,6 +9,7 @@ import java.awt.event.KeyEvent;
 
 public class UITextField extends UIComponent implements Typeable, Clickable{
     private Font font;
+    private FontMetrics metrics;
     private Color bodyColor;
     private Color borderColor;
     private Color textColor;
@@ -30,7 +32,7 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
 
     @Override
     protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
-        FontMetrics metrics = g.getFontMetrics(font);
+        metrics = g.getFontMetrics(font);
         int x = this.x + containerShape.getBounds().x + offsetX;
         int y = this.y + containerShape.getBounds().y + offsetY;
         int textX = x + (width - metrics.stringWidth(text)) / 2;
@@ -57,7 +59,7 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
         if((ScreenManager.getTypingComponent() == this) && KeyboardInput.typing && KeyboardInput.canBeTyped(KeyboardInput.currentCode)) {
             if ((characterTypeTimer < 0 || KeyboardInput.currentKey != lastCharacter)) {
                 if (KeyboardInput.canBeTyped(KeyboardInput.currentCode)) {
-                    if(!KeyboardInput.isActionKey) {
+                    if(!KeyboardInput.isActionKey && KeyboardInput.currentKey != KeyEvent.VK_BACK_SPACE) {
                         text += KeyboardInput.currentKey;
                         textCursorPosition++;
                     } else {
@@ -70,14 +72,16 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
                 }
 
                 if (KeyboardInput.currentCode == KeyEvent.VK_BACK_SPACE) {
-                    if(text.length() == 0) {
-                        text = "";
-                    } else if(text.length() == 1) {
-                        text = "";
-                        textCursorPosition = 0;
-                    } else {
-                        text = text.substring(0, text.length() - 2);
-                        textCursorPosition = textCursorPosition - 2;
+                    if(textCursorPosition > 0) {
+                        if (text.length() == 0) {
+                            text = "";
+                        } else if (text.length() == 1) {
+                            text = "";
+                            textCursorPosition = 0;
+                        } else {
+                            text = text.substring(0, textCursorPosition - 1) + text.substring(textCursorPosition - 1, text.length() - 1);
+                            textCursorPosition = textCursorPosition - 1;
+                        }
                     }
                 }
 
@@ -99,22 +103,36 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Shape containerShape, int offsetX, int offsetY) {
+        int x = this.x + containerShape.getBounds().x + offsetX;
+        int y = this.y + containerShape.getBounds().y + offsetY;
+        int textX = x + (width - metrics.stringWidth(text)) / 2;
+        int textY = y + ((height - metrics.getHeight()) / 2) + metrics.getAscent();
+        int dx = 0;
+        int closestTry = 0;
+        int bestDistance = 1000;
+        for(int i = 0; i < text.length(); i++) {
+            dx += metrics.charWidth(text.charAt(i));
+            if(Math.abs(MouseInput.x - (dx + textX)) < bestDistance) {
+                bestDistance = Math.abs(MouseInput.x - (dx + textX));
+                closestTry = i;
+            }
+        }
+        textCursorPosition = Math.min(closestTry + 1, text.length());
+    }
+
+    @Override
+    public void onUnClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onUnClick() {
+    public void onHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onHover() {
-
-    }
-
-    @Override
-    public void onUnHover() {
+    public void onUnHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 }

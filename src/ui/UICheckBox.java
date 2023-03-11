@@ -46,23 +46,23 @@ public class UICheckBox extends UIComponent implements Clickable{
     }
 
     @Override
-    public void onClick() {
+    public void onClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onUnClick() {
+    public void onUnClick(Shape containerShape, int offsetX, int offsetY) {
         isChecked = !isChecked;
         clickAction.onClick(this);
     }
 
     @Override
-    public void onHover() {
+    public void onHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
     @Override
-    public void onUnHover() {
+    public void onUnHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 

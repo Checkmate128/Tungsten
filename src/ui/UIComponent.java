@@ -15,21 +15,21 @@ public abstract class UIComponent {
     protected int lastMouseX = 0;
     protected int lastMouseY = 0;
 
-    protected void onClick() {
+    protected void onClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
-    protected void onUnClick() {
+    protected void onUnClick(Shape containerShape, int offsetX, int offsetY) {
 
     }
-    protected void onHover() {
+    protected void onHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
-    protected void onUnHover() {
+    protected void onUnHover(Shape containerShape, int offsetX, int offsetY) {
 
     }
 
-    protected void onDrag(int dx, int dy) {
+    protected void onDrag(int dx, int dy, Shape containerShape, int offsetX, int offsetY) {
 
     }
     protected abstract void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY);
@@ -41,25 +41,25 @@ public abstract class UIComponent {
         if(containerShape.contains(new Point(MouseInput.x, MouseInput.y - 26))) {
             if (this instanceof Clickable && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && !isHovered) {
                 isHovered = true;
-                onHover();
+                onHover(containerShape, offsetX, offsetY);
             }
 
             if (this instanceof Clickable && !(MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height) && isHovered) {
                 isHovered = false;
-                onUnHover();
+                onUnHover(containerShape, offsetX, offsetY);
             }
 
             if (this instanceof Clickable && ScreenManager.getClickedComponent() == null && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && !lastMouseClickState && MouseInput.leftClick) {
                 ScreenManager.setClickedComponent(this);
-                onClick();
+                onClick(containerShape, offsetX, offsetY);
             }
 
             if (this instanceof Clickable && ScreenManager.getClickedComponent() == this && isClickable && MouseInput.x >= x && MouseInput.x <= x + width && MouseInput.y - 26 >= y && MouseInput.y - 26 <= y + height && lastMouseClickState && !MouseInput.leftClick) {
-                onUnClick();
+                onUnClick(containerShape, offsetX, offsetY);
             }
 
             if (this instanceof Draggable && ScreenManager.getClickedComponent() == this && isClickable) {
-                onDrag(MouseInput.x - lastMouseX, MouseInput.y - lastMouseY);
+                onDrag(MouseInput.x - lastMouseX, MouseInput.y - lastMouseY, containerShape, offsetX, offsetY);
             }
 
             if (this instanceof Typeable && !MouseInput.leftClick && lastMouseClickState) {
@@ -72,7 +72,7 @@ public abstract class UIComponent {
         } else {
             if(isHovered) {
                 isHovered = false;
-                onUnHover();
+                onUnHover(containerShape, offsetX, offsetY);
             }
         }
 
