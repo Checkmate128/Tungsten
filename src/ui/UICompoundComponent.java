@@ -4,8 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UICompoundComponent extends UIComponent{
-    private ArrayList<UIComponent> components = new ArrayList<>();
-    private Shape boundingShape;
+    protected ArrayList<UIComponent> components = new ArrayList<>();
+    protected Shape boundingShape;
 
     public UICompoundComponent(int x, int y, int width, int height) {
         this.x = x;
@@ -46,14 +46,12 @@ public class UICompoundComponent extends UIComponent{
     }
 
     @Override
-    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
-        g.setColor(Color.BLACK);
-        g.draw(boundingShape);
+    public void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         componentsRender(g, offsetX, offsetY);
     }
 
     @Override
-    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+    public void tick(Shape containerShape, int offsetX, int offsetY) {
         componentsTick(offsetX, offsetY);
         baseTick(containerShape, offsetX, offsetY);
     }

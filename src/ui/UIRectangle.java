@@ -23,7 +23,7 @@ public class UIRectangle extends UIComponent {
     }
 
     @Override
-    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
+    public void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
         int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         g.setColor(color);
@@ -31,7 +31,7 @@ public class UIRectangle extends UIComponent {
     }
 
     @Override
-    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+    public void tick(Shape containerShape, int offsetX, int offsetY) {
         baseTick(containerShape, offsetX, offsetY);
     }
 }

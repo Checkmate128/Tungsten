@@ -20,8 +20,18 @@ public class UIVerticalScrollBar extends UIComponent implements Draggable, Click
         this.barFillLength = barFillLength;
     }
 
+    public UIVerticalScrollBar(int x, int y, int width, int height, Style style, int barFillLength) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.backgroundColor = style.primaryColor;
+        this.fillColor = style.secondaryColor;
+        this.barFillLength = barFillLength;
+    }
+
     @Override
-    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
+    public void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
         int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         g.setColor(backgroundColor);
@@ -32,7 +42,7 @@ public class UIVerticalScrollBar extends UIComponent implements Draggable, Click
     }
 
     @Override
-    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+    public void tick(Shape containerShape, int offsetX, int offsetY) {
         baseTick(containerShape, offsetX, offsetY);
 
         if(value > 1) {
@@ -73,5 +83,9 @@ public class UIVerticalScrollBar extends UIComponent implements Draggable, Click
     @Override
     public void onUnHover(Shape containerShape, int offsetX, int offsetY) {
 
+    }
+
+    public double getValue() {
+        return value;
     }
 }

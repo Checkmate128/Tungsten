@@ -33,14 +33,14 @@ public class UIAdvertisement extends UIComponent implements Clickable{
     }
 
     @Override
-    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
+    public void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         g.setColor(new Color(120, 120, 120));
         g.fillRect(x, y, width, height);
         TextRenderer.drawCenteredString(g, x, y, width, height, "Ad", new Font("Arial", 0, 40));
     }
 
     @Override
-    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+    public void tick(Shape containerShape, int offsetX, int offsetY) {
 
     }
 }

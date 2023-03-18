@@ -42,7 +42,7 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
     }
 
     @Override
-    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
+    public void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         metrics = g.getFontMetrics(font);
         int x = this.x + containerShape.getBounds().x + offsetX;
         int y = this.y + containerShape.getBounds().y + offsetY;
@@ -64,7 +64,7 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
     }
 
     @Override
-    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+    public void tick(Shape containerShape, int offsetX, int offsetY) {
         baseTick(containerShape, offsetX, offsetY);
         if((ScreenManager.getTypingComponent() == this) && KeyboardInput.typing && KeyboardInput.canBeTyped(KeyboardInput.currentCode)) {
             if ((characterTypeTimer < 0 || KeyboardInput.currentKey != lastCharacter)) {
@@ -107,7 +107,7 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
                 }
             }
         } else {
-            characterTypeTimer = 0;
+            characterTypeTimer = -1;
             lastCharacter = 0;
         }
     }

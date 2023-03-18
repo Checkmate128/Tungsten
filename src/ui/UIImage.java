@@ -18,14 +18,14 @@ public class UIImage extends UIComponent{
     }
 
     @Override
-    protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
+    public void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + containerShape.getBounds().x + offsetX;
         int y = this.y + containerShape.getBounds().y + offsetY;
         g.drawImage(image, x, y, width, height, null);
     }
 
     @Override
-    protected void tick(Shape containerShape, int offsetX, int offsetY) {
+    public void tick(Shape containerShape, int offsetX, int offsetY) {
         baseTick(containerShape, offsetX, offsetY);
     }
 }
