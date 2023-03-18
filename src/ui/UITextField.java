@@ -30,6 +30,17 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
         this.textColor = textColor;
     }
 
+    public UITextField(int x, int y, int width, int height, Style style) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.font = style.font;
+        this.bodyColor = style.primaryColor;
+        this.borderColor = style.borderColor;
+        this.textColor = style.fontColor;
+    }
+
     @Override
     protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         metrics = g.getFontMetrics(font);
@@ -55,7 +66,6 @@ public class UITextField extends UIComponent implements Typeable, Clickable{
     @Override
     protected void tick(Shape containerShape, int offsetX, int offsetY) {
         baseTick(containerShape, offsetX, offsetY);
-
         if((ScreenManager.getTypingComponent() == this) && KeyboardInput.typing && KeyboardInput.canBeTyped(KeyboardInput.currentCode)) {
             if ((characterTypeTimer < 0 || KeyboardInput.currentKey != lastCharacter)) {
                 if (KeyboardInput.canBeTyped(KeyboardInput.currentCode)) {

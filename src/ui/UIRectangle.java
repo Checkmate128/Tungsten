@@ -14,6 +14,14 @@ public class UIRectangle extends UIComponent {
         this.color = color;
     }
 
+    public UIRectangle(int x, int y, int width, int height, Style style) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = style.primaryColor;
+    }
+
     @Override
     protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + (int) containerShape.getBounds().getX() + offsetX;

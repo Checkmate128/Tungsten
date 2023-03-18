@@ -35,17 +35,39 @@ public class UIHorizontalSlider extends UIComponent implements Clickable, Dragga
         this.action = action;
     }
 
+    public UIHorizontalSlider(int x, int y, int width, int thickness, Style style, ClickAction action) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.thickness = thickness;
+        this.height = thickness * 2;
+        this.mainColor = style.primaryColor;
+        this.filledAreaColor = style.secondaryColor;
+        this.action = action;
+    }
+
+    public UIHorizontalSlider(int x, int y, int width, int thickness, Style style, double value, ClickAction action) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.thickness = thickness;
+        this.height = thickness * 2;
+        this.mainColor = style.primaryColor;
+        this.filledAreaColor = style.secondaryColor;
+        this.value = value;
+        this.action = action;
+    }
+
     @Override
     public void onClick(Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
         int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         value = ((double)(MouseInput.x - x)) / width;
-        action.onClick(this);
     }
 
     @Override
     public void onUnClick(Shape containerShape, int offsetX, int offsetY) {
-
+        action.onClick(this);
     }
 
     @Override

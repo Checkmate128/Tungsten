@@ -10,10 +10,12 @@ public class UIButton extends UIComponent implements Clickable{
     private Color normalColor;
     private Color hoverColor;
     private Color color;
+    private Color unClickableColor;
+    private Font font;
 
     private ClickAction onClick;
 
-    public UIButton(int x, int y, int width, int height, String text, Color normalColor, Color hoverColor, ClickAction onClick) {
+    public UIButton(int x, int y, int width, int height, String text, Color normalColor, Color hoverColor, Font font, ClickAction onClick) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -23,9 +25,10 @@ public class UIButton extends UIComponent implements Clickable{
         this.hoverColor = hoverColor;
         this.onClick = onClick;
         this.color = normalColor;
+        this.unClickableColor = new Color(0, 0, 0, 160);
     }
 
-    public UIButton(int x, int y, int width, int height, String text, Color normalColor, Color hoverColor, boolean isClickable, ClickAction onClick) {
+    public UIButton(int x, int y, int width, int height, String text, Color normalColor, Color hoverColor, Font font, boolean isClickable, ClickAction onClick) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -36,31 +39,36 @@ public class UIButton extends UIComponent implements Clickable{
         this.isClickable = isClickable;
         this.onClick = onClick;
         this.color = normalColor;
+        this.unClickableColor = new Color(0, 0, 0, 160);
     }
 
-    public UIButton(int x, int y, int width, int height, String text, ClickAction onClick) {
+    public UIButton(int x, int y, int width, int height, String text, Style style, ClickAction onClick) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.text = text;
-        this.normalColor = (Color) StyleGuide.BUTTON_STYLE.get(0);
-        this.hoverColor = (Color) StyleGuide.BUTTON_STYLE.get(1);
+        this.normalColor = style.getPrimaryColor();
+        this.hoverColor = style.getHoverColor();
         this.onClick = onClick;
         this.color = normalColor;
+        this.unClickableColor = style.getUnClickableColor();
+        this.font = style.getFont();
     }
 
-    public UIButton(int x, int y, int width, int height, String text, boolean isClickable, ClickAction onClick) {
+    public UIButton(int x, int y, int width, int height, String text, boolean isClickable, Style style, ClickAction onClick) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.text = text;
-        this.normalColor = (Color) StyleGuide.BUTTON_STYLE.get(0);
-        this.hoverColor = (Color) StyleGuide.BUTTON_STYLE.get(1);
+        this.normalColor = style.getPrimaryColor();
+        this.hoverColor = style.getHoverColor();
         this.isClickable = isClickable;
         this.onClick = onClick;
         this.color = normalColor;
+        this.unClickableColor = style.getUnClickableColor();
+        this.font = style.getFont();
     }
 
     @Override
@@ -90,11 +98,11 @@ public class UIButton extends UIComponent implements Clickable{
         g.setColor(color);
         g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
-        TextRenderer.drawCenteredString(g, x, y, width, height, text, new Font("Arial", 0, 50));
         if(!isClickable) {
-            g.setColor(new Color(0, 0, 0, 160));
+            g.setColor(unClickableColor);
             g.fillRect(x, y, width, height);
         }
+        TextRenderer.drawCenteredString(g, x, y, width, height, text, font);
     }
 
     @Override

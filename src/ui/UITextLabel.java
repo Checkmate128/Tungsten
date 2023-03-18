@@ -7,26 +7,26 @@ import java.awt.*;
 public class UITextLabel extends UIComponent{
     private String text;
     private Color color;
-    private int fontSize;
+    private Font font;
 
-    public UITextLabel(int x, int y, int width, int height, String text, Color color, int fontSize) {
+    public UITextLabel(int x, int y, int width, int height, String text, Color color, Font font) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.text = text;
         this.color = color;
-        this.fontSize = fontSize;
+        this.font = font;
     }
 
-    public UITextLabel(int x, int y, int width, int height, String text) {
+    public UITextLabel(int x, int y, int width, int height, String text, Style style) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.text = text;
-        this.color = (Color) StyleGuide.TEXT_LABEL_STYLE.get(0);
-        this.fontSize = (int) StyleGuide.TEXT_LABEL_STYLE.get(1);
+        this.color = style.getPrimaryColor();
+        this.font = style.getFont();
     }
 
     @Override
@@ -34,7 +34,7 @@ public class UITextLabel extends UIComponent{
         int x = this.x + (int) containerShape.getBounds().getX() + offsetX;
         int y = this.y + (int) containerShape.getBounds().getY() + offsetY;
         g.setColor(color);
-        TextRenderer.drawCenteredString(g, x, y, width, height, text, new Font("Arial", 0, fontSize));
+        TextRenderer.drawCenteredString(g, x, y, width, height, text, font);
     }
 
     @Override

@@ -26,21 +26,21 @@ public class UICheckBox extends UIComponent implements Clickable{
         this.clickAction = clickAction;
     }
 
-    public UICheckBox(int x, int y, int width, int height, ClickAction clickAction) {
+    public UICheckBox(int x, int y, int width, int height, Style style, ClickAction clickAction) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = (Color) StyleGuide.CHECK_BOX_STYLE.get(0);
+        this.color = style.getPrimaryColor();
         this.clickAction = clickAction;
     }
 
-    public UICheckBox(int x, int y, int width, int height, boolean isChecked, ClickAction clickAction) {
+    public UICheckBox(int x, int y, int width, int height, boolean isChecked, Style style, ClickAction clickAction) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.color = (Color) StyleGuide.CHECK_BOX_STYLE.get(0);
+        this.color = style.getPrimaryColor();
         this.isChecked = isChecked;
         this.clickAction = clickAction;
     }

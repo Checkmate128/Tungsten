@@ -21,6 +21,16 @@ public class UIImageButton extends UIComponent implements Clickable{
         this.action = action;
     }
 
+    public UIImageButton(int x, int y, int width, int height, String fileName, Style style, ClickAction action) {
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        image = loader.loadImage(fileName);
+        this.hoverOverlay = style.hoverColor;
+        this.action = action;
+    }
+
     @Override
     protected void render(Graphics2D g, Shape containerShape, int offsetX, int offsetY) {
         int x = this.x + containerShape.getBounds().x + offsetX;
